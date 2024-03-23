@@ -17,7 +17,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;com.qnx.tools.ide.qde.core.QDELinkerErrorParser;com.qnx.tools.ide.qde.core.QdeExtraMakeErrorParser;com.qnx.tools.ide.systembuilder.cdt.core.errorparser" id="com.qnx.qcc.toolChain.749813055" name="x86_64-debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;com.qnx.tools.ide.qde.core.QDELinkerErrorParser;com.qnx.tools.ide.qde.core.QdeExtraMakeErrorParser;com.qnx.tools.ide.systembuilder.cdt.core.errorparser" id="com.qnx.qcc.toolChain.749813055" name="x86_64-debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.749813055.1601578301" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.274490860" name="QNX QCC" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.516117216" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -26,16 +26,16 @@
 							<option id="com.qnx.qcc.option.runtime.1324185499" name="C++ Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<option id="com.qnx.qcc.option.buildtype.1287236530" name="Build Type:" superClass="com.qnx.qcc.option.buildtype"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.117072985" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.747580858" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder id="cdt.managedbuild.target.gnu.builder.base.747580858" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="com.qnx.qcc.tool.compiler.149477388" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.433674441" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.433674441" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.compiler.1361213699" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.952442957" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1736846814" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.1977341799" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.langcpp.194500197" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.194500197" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1701748313" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
@@ -60,7 +60,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;com.qnx.tools.ide.qde.core.QDELinkerErrorParser;com.qnx.tools.ide.qde.core.QdeExtraMakeErrorParser;com.qnx.tools.ide.systembuilder.cdt.core.errorparser" id="com.qnx.qcc.toolChain.1449188618" name="x86_64-release" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;com.qnx.tools.ide.qde.core.QDELinkerErrorParser;com.qnx.tools.ide.qde.core.QdeExtraMakeErrorParser;com.qnx.tools.ide.systembuilder.cdt.core.errorparser" id="com.qnx.qcc.toolChain.1449188618" name="x86_64-release" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1449188618.1338486795" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1306801553" name="QNX QCC" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1657246797" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -69,16 +69,16 @@
 							<option id="com.qnx.qcc.option.runtime.2131117067" name="C++ Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<option id="com.qnx.qcc.option.buildtype.847050919" name="Build Type:" superClass="com.qnx.qcc.option.buildtype" value="release" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1849572483" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.265435337" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder id="cdt.managedbuild.target.gnu.builder.base.265435337" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="com.qnx.qcc.tool.compiler.1058234561" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.1455218130" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.1455218130" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.compiler.1028205076" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.702410091" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1586692384" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.89696314" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.langcpp.869404078" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.869404078" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1708774196" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
@@ -103,7 +103,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;com.qnx.tools.ide.qde.core.QDELinkerErrorParser;com.qnx.tools.ide.qde.core.QdeExtraMakeErrorParser;com.qnx.tools.ide.systembuilder.cdt.core.errorparser" id="com.qnx.qcc.toolChain.336590553" name="x86_64-coverage" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;com.qnx.tools.ide.qde.core.QDELinkerErrorParser;com.qnx.tools.ide.qde.core.QdeExtraMakeErrorParser;com.qnx.tools.ide.systembuilder.cdt.core.errorparser" id="com.qnx.qcc.toolChain.336590553" name="x86_64-coverage" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.336590553.565185994" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1397856367" name="QNX QCC" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1055930762" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -112,16 +112,16 @@
 							<option id="com.qnx.qcc.option.runtime.691258050" name="C++ Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<option id="com.qnx.qcc.option.buildtype.879593055" name="Build Type:" superClass="com.qnx.qcc.option.buildtype" value="coverage" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.134717886" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.1684890666" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder id="cdt.managedbuild.target.gnu.builder.base.1684890666" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="com.qnx.qcc.tool.compiler.231269734" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.533053406" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.533053406" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.compiler.1264650838" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1765950290" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1432389457" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.1131111637" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.langcpp.1483381504" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.1483381504" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.773095113" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
@@ -146,7 +146,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;com.qnx.tools.ide.qde.core.QDELinkerErrorParser;com.qnx.tools.ide.qde.core.QdeExtraMakeErrorParser;com.qnx.tools.ide.systembuilder.cdt.core.errorparser" id="com.qnx.qcc.toolChain.1050205382" name="x86_64-profile" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;com.qnx.tools.ide.qde.core.QDELinkerErrorParser;com.qnx.tools.ide.qde.core.QdeExtraMakeErrorParser;com.qnx.tools.ide.systembuilder.cdt.core.errorparser" id="com.qnx.qcc.toolChain.1050205382" name="x86_64-profile" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1050205382.1819156739" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.501609840" name="QNX QCC" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.223909873" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -155,16 +155,16 @@
 							<option id="com.qnx.qcc.option.runtime.1561023746" name="C++ Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<option id="com.qnx.qcc.option.buildtype.1414749842" name="Build Type:" superClass="com.qnx.qcc.option.buildtype" value="profile" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.2066217176" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.43478350" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder id="cdt.managedbuild.target.gnu.builder.base.43478350" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="com.qnx.qcc.tool.compiler.1957294410" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.567457379" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.567457379" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.compiler.104966394" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1416759944" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1350334448" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.890428940" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.langcpp.2049336738" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.2049336738" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.245498418" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
@@ -184,7 +184,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.1288274826" name="aarch64le-debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.1288274826" name="aarch64le-debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1288274826.1429313588" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.375646618" name="QNX QCC" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1206859341" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -193,23 +193,23 @@
 							<option id="com.qnx.qcc.option.runtime.815287503" name="C++ Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<option id="com.qnx.qcc.option.buildtype.1280322050" name="Build Type:" superClass="com.qnx.qcc.option.buildtype"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1778402336" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.1563412716" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder id="cdt.managedbuild.target.gnu.builder.base.1563412716" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="com.qnx.qcc.tool.compiler.974926276" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.358446894" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.358446894" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.compiler.2095212020" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.2020841437" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.273891827" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.1986073724" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.langcpp.2013086117" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.2013086117" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.805437927" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="/src"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="/public"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="public"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -226,7 +226,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.1498981259" name="aarch64le-release" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.1498981259" name="aarch64le-release" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1498981259.723834573" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.2034394537" name="QNX QCC" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1553802999" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -235,26 +235,27 @@
 							<option id="com.qnx.qcc.option.runtime.2003132011" name="C++ Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<option id="com.qnx.qcc.option.buildtype.823279717" name="Build Type:" superClass="com.qnx.qcc.option.buildtype" value="release" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.337523382" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.229254746" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder id="cdt.managedbuild.target.gnu.builder.base.229254746" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="com.qnx.qcc.tool.compiler.1525978033" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.670341194" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.670341194" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.compiler.1145048526" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1693656419" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.493505063" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.525840357" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.langcpp.1663939978" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.1663939978" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1880437966" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="/src"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="/public"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="public"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 		<cconfiguration id="com.qnx.qcc.toolChain.652741914">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.qnx.qcc.toolChain.652741914" moduleId="org.eclipse.cdt.core.settings" name="aarch64le-coverage">
@@ -267,7 +268,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.652741914" name="aarch64le-coverage" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.652741914" name="aarch64le-coverage" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.652741914.1971225684" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1314027613" name="QNX QCC" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1310625221" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -276,26 +277,27 @@
 							<option id="com.qnx.qcc.option.runtime.1651755068" name="C++ Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<option id="com.qnx.qcc.option.buildtype.1984772975" name="Build Type:" superClass="com.qnx.qcc.option.buildtype" value="coverage" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1179617359" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.1914324398" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder id="cdt.managedbuild.target.gnu.builder.base.1914324398" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="com.qnx.qcc.tool.compiler.1233406237" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.189234938" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.189234938" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.compiler.2078903761" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1332451344" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1381170087" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.760430056" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.langcpp.2085167980" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.2085167980" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1552713566" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="/src"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="/public"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="public"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 		<cconfiguration id="com.qnx.qcc.toolChain.54175240">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.qnx.qcc.toolChain.54175240" moduleId="org.eclipse.cdt.core.settings" name="aarch64le-profile">
@@ -308,7 +310,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.54175240" name="aarch64le-profile" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.54175240" name="aarch64le-profile" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.54175240.2113951385" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1487452443" name="QNX QCC" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1547881466" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -317,26 +319,27 @@
 							<option id="com.qnx.qcc.option.runtime.597237960" name="C++ Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<option id="com.qnx.qcc.option.buildtype.95242530" name="Build Type:" superClass="com.qnx.qcc.option.buildtype" value="profile" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.579959732" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.1612618116" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder id="cdt.managedbuild.target.gnu.builder.base.1612618116" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="com.qnx.qcc.tool.compiler.991916158" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.713522408" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.713522408" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" useByScannerDiscovery="false" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.compiler.1736869670" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.307609139" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1221295225" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.2145195471" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.langcpp.2120632017" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.linker.langcpp.2120632017" name="C++ (-lang-c++)" superClass="com.qnx.qcc.option.linker.langcpp" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1833857824" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="/src"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="/public"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="public"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">

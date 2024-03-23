@@ -1,5 +1,4 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#pragma once
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -12,12 +11,14 @@ class Client
 {
 private:
     int sockfd;
+    bool logging;
+    void log(std::string);
 
 public:
-    Client();
+    Client(bool logging = false);
     ~Client();
 
     bool sendMessage(const Message &, Message &, const char *serverIp, int serverPort);
 };
 
-#endif // CLIENT_H
+

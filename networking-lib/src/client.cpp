@@ -8,22 +8,26 @@
 #include "defs.h"
 #include <arpa/inet.h>
 
+// TODO: clean up code
+// TODO: add error handling
+// TODO: verify memory management
 
-Client::Client() : sockfd(-1)
+Client::Client(bool logging) : sockfd(-1), logging(logging)
 {
+	log("Creating Client");
 }
 
 Client::~Client()
 {
     // Close socket
+	log("Destroying Client");
     close(sockfd);
 }
 
 bool Client::sendMessage(const Message &request, Message &response, const char *serverIp, int serverPort)
 {
     // Create a socket
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd == -1)
+    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     {
         std::cerr << "Error creating socket\n";
         return false;
@@ -41,7 +45,6 @@ bool Client::sendMessage(const Message &request, Message &response, const char *
     }
 
     // Connect to the server
-
     if (connect(sockfd, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) == -1)
     {
         std::cerr << "Error connecting to server\n";
@@ -49,18 +52,20 @@ bool Client::sendMessage(const Message &request, Message &response, const char *
     }
 
     // Send the request message
-    char buffer[4096];
+    char buffer[sizeof(Message)];
     memcpy(buffer, &request, sizeof(buffer));
-    if (send(sockfd, &buffer, sizeof(buffer), 0) == -1) {
+
+    if (send(sockfd, &buffer, sizeof(buffer), 0) == -1)
+    {
         std::cerr << "Error sending request\n";
         close(sockfd);
         return false;
     }
 
     // Receive the response
-    char response_buffer[4096];
-    int bytesRead = recv(sockfd, &response_buffer, sizeof(response_buffer), 0);
-    std::cout << "receiving data" << std::endl;
+    char response_buffer[sizeof(Message)];
+    char bytesRead = recv(sockfd, &response_buffer, sizeof(response_buffer), 0);
+    log("Received " + std::to_string(bytesRead) + " bytes");
     if (bytesRead == -1)
     {
         std::cerr << "Error receiving response\n";
@@ -69,16 +74,7 @@ bool Client::sendMessage(const Message &request, Message &response, const char *
     }
 
     // Process the response
-	memcpy(&response, response_buffer, bytesRead);
-	std::cout << "Received: " << std::string(response_buffer, sizeof(response_buffer)) << std::endl;
-	char deserializedText[sizeof(response.data) + 1];
-	memcpy(deserializedText, response.data, sizeof(response.data));
-	deserializedText[sizeof(response.data)] = '\0';
-	std::cout << "Received Data " << deserializedText << std::endl;
-
-
-
-
+    memcpy(&response, response_buffer, bytesRead);
 
     // Close socket
     close(sockfd);
@@ -86,4 +82,12 @@ bool Client::sendMessage(const Message &request, Message &response, const char *
     return true;
 }
 
-// how to send data
+void Client::log(std::string message)
+{
+    if (logging)
+    {
+        std::cout << message << std::endl;
+    }
+}
+
+
