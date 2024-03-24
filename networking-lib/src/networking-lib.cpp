@@ -10,26 +10,36 @@
 #include "defs.h"
 
 
-int main() {
-    Server server = Server(30);
+
+// TODO: unit tests
+// TODO: example code
+
+
+void unitTests(){
+
+
+}
+
+
+
+int main()
+{
+
+	/*
+    Server server = Server(30, true);
 
     // Add routes and corresponding route handler functions
     server.addRoute("/", [](const Message &request, Message &response, int clientSocket, Server *in_server)
                     {
-
                         // Send response
-    					std::cout << "here" << std::endl;
-                        response.status = 200;
-                        std::strncpy(response.path, "", sizeof(response.path));
-                        std::strncpy(response.datatype, "text/plain", sizeof(response.datatype));
-                        memccpy(response.data, "Hello from server", 0, 17);
+                        response.setHeaders(200,"",30,"/","text/plain");
+                        response.setData("Hello from server");
                         in_server->sendMessage(response, clientSocket);
-                        std::cout << "send data!" << std::endl;
 
+                        std::cout << "send data!" << std::endl; });
 
-                    });
-
-    server.startServer();
+    server.startServer()
+    */
 
     return 0;
 }

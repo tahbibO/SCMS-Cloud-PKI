@@ -1,4 +1,4 @@
-ARTIFACT = crypto-lib
+ARTIFACT = main
 
 #Build architecture/variant string, possible values: x86, armv7le, etc...
 PLATFORM ?= x86_64
@@ -23,6 +23,8 @@ LD = $(CXX)
 
 #LIBS += -L/path/to/my/lib/$(PLATFORM)/usr/lib -lmylib
 #LIBS += -L../mylib/$(OUTPUT_DIR) -lmylib
+
+LIBS += -lssl -lcrypto
 
 #Compiler flags for build profiles
 CCFLAGS_release += -O2

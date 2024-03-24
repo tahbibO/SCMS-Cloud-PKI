@@ -1,12 +1,4 @@
-/*
- * Server.h
- *
- *  Created on: Mar. 21, 2024
- *      Author: Tahbib
- */
-
-#ifndef SRC_INCLUDES_SERVER_H_
-#define SRC_INCLUDES_SERVER_H_
+#pragma once
 
 #include <functional>
 #include <unordered_map>
@@ -20,9 +12,11 @@ private:
     std::unordered_map<std::string, std::function<void(const Message &, Message &, int, Server *)>> routes;
     int serverSocket;
     int port;
+    bool logging;
+    void log(std::string);
 
 public:
-    Server(int portNumber);
+    Server(int portNumber, bool logging = false);
     ~Server();
 
     void addRoute(const std::string &path, const std::function<void(const Message &, Message &, int, Server *)> &handler);
@@ -32,4 +26,3 @@ public:
     void sendMessage(const Message &response, int clientSocket);
 };
 
-#endif /* SRC_INCLUDES_SERVER_H_ */

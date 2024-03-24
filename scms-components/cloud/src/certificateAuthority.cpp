@@ -45,10 +45,6 @@ x509 certificateAuthority::issue_cert(std::tuple<int, int> key_p) {
     return temp_cert;
 }
 
-rootCertificateAuthority::rootCertificateAuthority() {
-
-}
-
 bool rootCertificateAuthority::self_sign() {
     srand(time(NULL));
     int rand = std::rand() % 1000;
