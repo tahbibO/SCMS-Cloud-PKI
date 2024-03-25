@@ -119,7 +119,7 @@ x509 generateRootCert(RSA* public_key) {
 	return x509("Root", public_key, "", "", nullptr, -1L, -1L);
 }
 
-// always should be private
+// always should be private key
 string signData(const std::string &data, const RSA *key) {
     int rsaLen = RSA_size(key);
     std::string encryptedData;

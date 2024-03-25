@@ -2,19 +2,12 @@
 
 #include <iostream>
 
-certificateAuthority::certificateAuthority(std::string name, int public_key, std::string signature, std::string location, int issuer, long issue_date, long valid_until) : name(name), cert{public_key, signature, location, &issuer, issue_date, valid_until} {
-    srand(time(NULL));
-    int rand = std::rand() % 1000;
+certificateAuthority::certificateAuthority{
+    *key_pair = generateRSAKeyPair();    
+}
 
-    while (keys.find(rand*public_key) != keys.end())
-    {
-        rand = std::rand() % 1000;
-    }
-
-    keys.insert(rand*public_key);
-
-    key_pair = {public_key, rand*public_key};
-
+certificateAuthority::~certificateAuthority() {
+    delete key_pair;
 }
 
 x509 certificateAuthority::get_cert() {
@@ -22,73 +15,46 @@ x509 certificateAuthority::get_cert() {
 }
 
 x509 certificateAuthority::issue_cert(std::tuple<int, int> key_p) {
-    int a = std::get<0>(key_p);
-    int b = std::get<1>(key_p);
-
-    // srand(time(NULL));
-    // int rand = std::rand() % 1000;
-
-    // while (keys.find(rand*a) != keys.end())
-    // {
-    //     rand = std::rand() % 1000;
-    // }
-
-    x509 temp_cert = {
-        a,
-        "someSignature",
-        "someLocation",
-        &cert.public_key,
-        123,
-        321
-    };
-
-    return temp_cert;
+    //Do
 }
 
 bool rootCertificateAuthority::self_sign() {
-    srand(time(NULL));
-    int rand = std::rand() % 1000;
 
-    while (keys.find(rand) != keys.end())
-    {
-        rand = std::rand() % 1000;
-    }
+    cert = generateRootCert(RSAPublicKey_dup(key_pair));
 
-    keys.insert(rand);
-
-    cert = {
-        rand,
-        "someSignature",
-        "someLocation",
-        &rand,
-        123,
-        321
-    };
-
-    return true;
+    return cert != NULL;
 }
 
-x509 enrollmentCertificateAuthority::enroll_device() {
-    srand(time(NULL));
-    int rand = std::rand() % 1000;
+enrollmentCertificateAuthority::enrollmentCertificateAuthority(x509* root) : certificateAuthority() {
+    long int t = static_cast<long int> (time(NULL));
+    std::string name = typeid(this);
+    std::string location = typeid(this) + " Location";
+    long issue_date = t;
+    long valid_until = t + 604800;
 
-    while (keys.find(rand) != keys.end())
+    cert = x509(name, RSAPublicKey_dup(key_pair), "", location, root, issue_date, valid_until);
+
+}
+
+bool enrollmentCertificateAuthority::enroll_device(x509 *certificate) {
+    if (signCertificate(certificate, key_pair, &cert))
     {
-        rand = std::rand() % 1000;
+        return true;
     }
 
-    keys.insert(rand);
+    return false;
+    
+}
 
-    x509 temp_cert = {
-        rand,
-        "someSignature",
-        "someLocation",
-        &cert.public_key,
-        123,
-        321
-    };
+pseudonymCertificateAuthority::pseudonymCertificateAuthority(x509* root) : certificateAuthority() {
+    long int t = static_cast<long int> (time(NULL));
+    std::string name = typeid(this);
+    std::string location = typeid(this) + " Location";
+    long issue_date = t;
+    long valid_until = t + 604800;
 
-    return temp_cert;
+    cert = x509(name, RSAPublicKey_dup(key_pair), "", location, root, issue_date, valid_until);
+
 }
 
 void printcert(x509 a) {
