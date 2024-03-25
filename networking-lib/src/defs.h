@@ -10,7 +10,7 @@ struct Message
     char path[64];
     char dataType[64];
     size_t dataSize;
-    char data[2048];
+    char data[4096];
 
     void setHeaders(int status, std::string ip_address, int port, std::string path, std::string dataType)
     {
