@@ -45,16 +45,34 @@
     "xstddef": "cpp",
     "xtr1common": "cpp",
     "xutility": "cpp",
+<<<<<<< HEAD
+    "random": "cpp",
+    "xhash": "cpp",
+=======
     "functional": "cpp",
+>>>>>>> 64a9e3bbb30982d64c1c650e83d3aa27fe50fbdb
     "algorithm": "cpp",
     "charconv": "cpp",
     "chrono": "cpp",
     "format": "cpp",
     "forward_list": "cpp",
+<<<<<<< HEAD
+    "functional": "cpp",
+=======
+>>>>>>> 64a9e3bbb30982d64c1c650e83d3aa27fe50fbdb
     "iomanip": "cpp",
     "list": "cpp",
     "locale": "cpp",
     "map": "cpp",
+<<<<<<< HEAD
+    "optional": "cpp",
+    "set": "cpp",
+    "sstream": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "vector": "cpp",
+=======
     "mutex": "cpp",
     "optional": "cpp",
     "sstream": "cpp",
@@ -62,6 +80,7 @@
     "unordered_map": "cpp",
     "vector": "cpp",
     "xhash": "cpp",
+>>>>>>> 64a9e3bbb30982d64c1c650e83d3aa27fe50fbdb
     "xlocbuf": "cpp",
     "xlocmes": "cpp",
     "xlocmon": "cpp",

@@ -1,4 +1,4 @@
-ARTIFACT = main
+ARTIFACT = crypto-lib
 
 #Build architecture/variant string, possible values: x86, armv7le, etc...
 PLATFORM ?= x86_64
