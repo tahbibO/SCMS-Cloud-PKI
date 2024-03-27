@@ -26,7 +26,7 @@
 
 #define YEAR_IN_MS 				31536000000
 #define MSG_LENGTH 				1024
-#define ECDSA_SIGNATURE_SIZE 			64
+#define ECDSA_SIGNATURE_SIZE 	64
 
 using namespace std;
 
@@ -199,3 +199,7 @@ bool verifyCertificate(x509 *certificate, map<string, RSA*> keyMap) {
 
 	return verifyCertificate(certificate->issuer, keyMap);
 }
+
+
+RSA* ROOT_KEY = generateRSAKeyPair();
+x509 ROOT_CERT = generateRootCert(ROOT_KEY);

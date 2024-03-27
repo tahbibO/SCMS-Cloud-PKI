@@ -25,19 +25,19 @@ int main() {
 
 	std::cout << "------------------CERTIFICATES-----------------" << std::endl;
 
-	RSA* rootKey = generateRSAKeyPair();
-	x509 root = generateRootCert(RSAPublicKey_dup(rootKey));
+	RSA* ROOT_KEY = generateRSAKeyPair();
+	x509 ROOT_CERT = generateRootCert(RSAPublicKey_dup(ROOT_KEY));
 
 	x509 certificateA("A", pubKeyA, "", "A was here", nullptr, time(nullptr) * 1000, certificateA.issue_date + YEAR_IN_MS);
 	x509 certificateB("B", pubKeyB, "", "B can be here", nullptr, time(nullptr) * 1000, certificateB.issue_date + YEAR_IN_MS);
 
-	if (signCertificate(&certificateA, rootKey, &root)) {
+	if (signCertificate(&certificateA, ROOT_KEY, &ROOT_CERT)) {
 		cout << "Successfully signed Certificate A" << endl;
 	} else {
 		cerr << "Failed signing certificate A, contact Tahbib (marcus is out of office)" << endl;
 	}
 
-	if (signCertificate(&certificateB, rootKey, &root)) {
+	if (signCertificate(&certificateB, ROOT_KEY, &ROOT_CERT)) {
 		cout << "Successfully signed Certificate B" << endl;
 	} else {
 		cerr << "Failed signing certificate B, contact Tahbib (marcus is out of office)" << endl;
@@ -86,10 +86,15 @@ int main() {
 	std::cout << std::endl;
 
 	// example, should just be done by OBE
+
+	map<string, x509*> certMap;
+	certMap[ROOT_CERT.name] = &ROOT_CERT;
+
 	map<string, RSA*> keyMap;
-	keyMap["Root"] = root.public_key;
+	keyMap["Root"] = ROOT_CERT.public_key;
 	keyMap["A"] = pubKeyA;
 	keyMap["B"] = pubKeyB;
+
 
 	std::cout << "Verify Certificate A: " << verifyCertificate(&certificateA, keyMap) << std::endl;
 	std::cout << "Verify Certificate B: " << verifyCertificate(&certificateB, keyMap) << std::endl;
