@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <cstring>
 #include <iostream>
-#include "defs.h"
+#include "networking-defs.h"
 
 class Client
 {

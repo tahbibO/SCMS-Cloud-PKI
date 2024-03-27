@@ -7,7 +7,7 @@
 #include <random>
 #include <unordered_set>
 #include <time.h>
-#include "../../../crypto-lib/src/defs.h"
+#include "../../../crypto-lib/src/crypto-defs.h"
 
 
 

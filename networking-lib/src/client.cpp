@@ -5,8 +5,9 @@
 #include <unistd.h>
 #include <cstring>
 #include <iostream>
-#include "defs.h"
 #include <arpa/inet.h>
+
+#include "networking-defs.h"
 
 // TODO: clean up code
 // TODO: add error handling

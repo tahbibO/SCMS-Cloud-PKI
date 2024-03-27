@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <string>
 #include <sys/json.h>
-#include "defs.h"
+#include "networking-defs.h"
 
 class Server
 {

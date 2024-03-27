@@ -6,8 +6,10 @@
 #include <thread>
 #include <sys/types.h>
 #include <arpa/inet.h>
+
+#include "networking-defs.h"
 #include "server.h"
-#include "defs.h"
+
 
 
 
@@ -25,7 +27,7 @@ void unitTests(){
 int main()
 {
 
-	/*
+
     Server server = Server(30, true);
 
     // Add routes and corresponding route handler functions
@@ -38,8 +40,8 @@ int main()
 
                         std::cout << "send data!" << std::endl; });
 
-    server.startServer()
-    */
+    server.startServer();
+
 
     return 0;
 }
