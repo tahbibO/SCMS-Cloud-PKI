@@ -35,16 +35,16 @@ void handleOpenSSLErrors() {
 }
 
 struct x509 {
-	string name;
+	std::string name;
 	RSA *public_key;
-	string signature;
-	string location;
-	x509 *issuer; // issuer cert
+	std::string signature;
+	std::string location;
+	std::string issuer; // issuer cert
 	long issue_date;
 	long valid_until;
 
 	// pubKey must be PUBLIC KEY. private key/whole keypair will break everything
-	x509(string certName, RSA *pubKey, string sig, string loc, x509* issr, long issue, long valid): name(certName), public_key(pubKey), signature(sig), location(loc), issuer(issr), issue_date(issue), valid_until(valid) {};
+	x509(std::string certName, RSA *pubKey, std::string sig, std::string loc, std::string issr, long issue, long valid): name(certName), public_key(pubKey), signature(sig), location(loc), issuer(issr), issue_date(issue), valid_until(valid) {};
 
 	bool isSerializedEqual(string other) {
 		return this->serialize() == other;
@@ -116,7 +116,7 @@ RSA* generateRSAKeyPair() {
 }
 
 x509 generateRootCert(RSA* public_key) {
-	return x509("Root", public_key, "", "", nullptr, -1L, -1L);
+	return x509("Root", public_key, "", "", "", -1L, -1L);
 }
 
 // always should be private key
@@ -156,7 +156,7 @@ bool signCertificate(x509 *certificate, RSA* private_key, x509 *issuerCertificat
 		return false;
 	}
 
-	certificate->issuer = issuerCertificate;
+	certificate->issuer = issuerCertificate->name;
 
 	string signedData = signData(certificate->serialize(), private_key);
 	if (signedData == "") {
@@ -168,7 +168,8 @@ bool signCertificate(x509 *certificate, RSA* private_key, x509 *issuerCertificat
 }
 
 // map is name associated, public key
-bool verifyCertificate(x509 *certificate, map<string, RSA*> keyMap) {
+bool verifyCertificate(x509 *certificate, map<string, RSA*> keyMap, map<std::string, x509*> certMap) {
+
 	if (certificate == nullptr) {
 		cerr << "Certificate is null" << endl;
 		return false;
@@ -178,26 +179,26 @@ bool verifyCertificate(x509 *certificate, map<string, RSA*> keyMap) {
 		return true;
 	}
 
-	// empty issuer
-	if (certificate->issuer == nullptr) {
+	// cannot find issuer in cert map
+	if (certMap.find(certificate->issuer) == certMap.end()) {
 		cerr << "Certificate Issuer is null" << endl;
 		return false;
 	}
 
-	if (keyMap.find(certificate->issuer->name) == keyMap.end()) {
-		cerr << "Could not find " << certificate->issuer->name << " key in key map." << endl;
+	if (keyMap.find(certificate->issuer) == keyMap.end()) {
+		cerr << "Could not find " << certificate->issuer << " key in key map." << endl;
 		return false;
 	}
 
-	RSA *key = keyMap[certificate->issuer->name];
+	RSA *key = keyMap[certificate->issuer];
 	string decrypted = verifyData(certificate->signature, key);
 
 	if (!certificate->isSerializedEqual(decrypted)) {
 		cerr << "Serialized is NOT equal" << endl;
 		return false;
 	}
-
-	return verifyCertificate(certificate->issuer, keyMap);
+	x509* nextCert = certMap[certificate->issuer];
+	return verifyCertificate(nextCert, keyMap, certMap);
 }
 
 
