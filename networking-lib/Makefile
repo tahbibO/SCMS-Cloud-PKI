@@ -20,10 +20,13 @@ LD = $(CXX)
 
 #INCLUDES += -I/path/to/my/lib/include
 #INCLUDES += -I../mylib/public
+INCLUDES += -I../../include
+
 
 #LIBS += -L/path/to/my/lib/$(PLATFORM)/usr/lib -lmylib
 #LIBS += -L../mylib/$(OUTPUT_DIR) -lmylib
 LIBS += -lsocket
+LIBS += -lssl -lcrypto
 
 #Compiler flags for build profiles
 CCFLAGS_release += -O2
@@ -35,6 +38,7 @@ LIBS_profile += -lprofilingS
 
 #Generic compiler flags (which include build type flags)
 CCFLAGS_all += -Wall -fmessage-length=0
+CCFLAGS_all += -std=gnu++17
 CCFLAGS_all += $(CCFLAGS_$(BUILD_PROFILE))
 #Shared library has to be compiled with -fPIC
 #CCFLAGS_all += -fPIC

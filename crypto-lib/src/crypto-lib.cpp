@@ -5,9 +5,11 @@
  *      Author: Marcus Moquin
  */
 
-#include "crypto-defs.h"
+#include "../../include/crypto-defs.h"
+#include "../../include/networking-defs.h"
 
-int main() {
+int main()
+{
 
 	std::cout << "-----------------KEY GENERATION----------------" << std::endl;
 
@@ -26,34 +28,41 @@ int main() {
 	std::cout << "B's Public Key: " << pubKeyB << std::endl;
 
 	std::cout << "------------------CERTIFICATES-----------------" << std::endl;
-
+	std::cout << "1 = Pass" << std::endl;
 
 	x509 certificateA("A", publicKeyToString(pubKeyA), "", "A was here", "", time(nullptr) * 1000, certificateA.issue_date + YEAR_IN_MS);
 	x509 certificateB("B", publicKeyToString(pubKeyB), "", "B can be here", "", time(nullptr) * 1000, certificateB.issue_date + YEAR_IN_MS);
 
-	if (signCertificate(&certificateA, ROOT_KEY, &ROOT_CERT)) {
+	if (signCertificate(&certificateA, ROOT_KEY, &ROOT_CERT))
+	{
 		std::cout << "Successfully signed Certificate A" << std::endl;
-	} else {
+	}
+	else
+	{
 		std::cerr << "Failed signing certificate A, contact Tahbib (marcus is out of office)" << std::endl;
 	}
 
-	if (signCertificate(&certificateB, ROOT_KEY, &ROOT_CERT)) {
+	if (signCertificate(&certificateB, ROOT_KEY, &ROOT_CERT))
+	{
 		std::cout << "Successfully signed Certificate B" << std::endl;
-	} else {
+	}
+	else
+	{
 		std::cerr << "Failed signing certificate B, contact Tahbib (marcus is out of office)" << std::endl;
 	}
 
-	std::map<std::string, x509*> certMap;
+	std::map<std::string, x509 *> certMap;
 	certMap[ROOT_CERT.name] = &ROOT_CERT;
 	certMap[certificateA.name] = &certificateA;
 	certMap[certificateB.name] = &certificateB;
 
-	std::map<std::string, RSA*> keyMap;
-	RSA* pubKeyRoot = stringToPublicKey(ROOT_CERT.public_key);
+	std::map<std::string, RSA *> keyMap;
+	RSA *pubKeyRoot = stringToPublicKey(ROOT_CERT.public_key);
+	// RSA* pubKeyRoot = RSAPublicKey_dup(ROOT_KEY);
 	keyMap["Root"] = pubKeyRoot;
 	keyMap["A"] = pubKeyA;
 	keyMap["B"] = pubKeyB;
-
+	/*
 	std::cout << "Certificate for A's public key" << std::endl;
 	std::cout << " Name: " << certificateA.name << std::endl;
 	std::cout << " Public Key: " << certificateA.public_key << std::endl;
@@ -69,9 +78,11 @@ int main() {
 	std::cout << " Issue Date: " << certificateA.issue_date << std::endl;
 	std::cout << " Valid Until: " << certificateA.valid_until << std::endl;
 	std::cout << std::endl;
+	*/
 
-	std::cout << "----------------------------------------------" << std::endl;
+	//std::cout << "----------------------------------------------" << std::endl;
 
+	/*
 	std::cout << "Certificate for B's public key" << std::endl;
 	std::cout << " Name: " << certificateB.name << std::endl;
 	std::cout << " Public Key: " << certificateB.public_key << std::endl;
@@ -87,51 +98,149 @@ int main() {
 	std::cout << " Issue Date: " << certificateB.issue_date << std::endl;
 	std::cout << " Valid Until: " << certificateB.valid_until << std::endl;
 	std::cout << std::endl;
+	*/
 
-	std::cout << "CertA == CertA? " << certificateA.isEqual(certificateA) << std::endl; // 1
-	std::cout << "CertA == CertB? " << certificateA.isEqual(certificateB) << std::endl; // 0
-	std::cout << "CertA == CertA?(Serialized) " << certificateA.isSerializedEqual(certificateA.serialize()) << std::endl; // 1
-	std::cout << "CertA == CertB?(Serialized) " << certificateA.isSerializedEqual(certificateB.serialize()) << std::endl; // 0
-	std::cout << "CertB == CertB? " << certificateB.isEqual(certificateB) << std::endl; // 1
-	std::cout << "CertB == CertA? " << certificateB.isEqual(certificateA) << std::endl; // 0
+	std::cout << "CertA == CertA? 		" << certificateA.isEqual(certificateA) << std::endl;									  		// 1
+	std::cout << "CertA != CertB? 		" << !certificateA.isEqual(certificateB) << std::endl;									  	// 1
+	std::cout << "CertA == CertA?(Serialized) 	" << certificateA.isSerializedEqual(certificateA.serialize()) << std::endl; 		// 1
+	std::cout << "CertA != CertB?(Serialized) 	" << !certificateA.isSerializedEqual(certificateB.serialize()) << std::endl; 		// 1
+	std::cout << "CertB == CertB? 		" << certificateB.isEqual(certificateB) << std::endl;									  		// 1
+	std::cout << "CertB != CertA? 		" << !certificateB.isEqual(certificateA) << std::endl;									  	// 1
 	std::cout << std::endl;
 
 	// example, should just be done by OBE
 
-
-
-
-	std::cout << "Verify Certificate A: " << verifyCertificate(&certificateA, keyMap,certMap) << std::endl; // 1 is good
-	std::cout << "Verify Certificate B: " << verifyCertificate(&certificateB, keyMap,certMap) << std::endl; // 1 is good
+	std::cout << "Verify Certificate A: 		" << verifyCertificate(&certificateA, keyMap, certMap) << std::endl; // 1 is good
+	std::cout << "Verify Certificate B: 		" << verifyCertificate(&certificateB, keyMap, certMap) << std::endl; // 1 is good
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	std::cout << "------------------Keys Helper Functions-----------------" << std::endl;
+	std::cout << "------------------Keys Conversion Functions-----------------" << std::endl;
+	std::cout << "1 = Pass" << std::endl;
 
 	std::string stringRootKey = ROOT_CERT.public_key;
-	RSA* stringToKeyRoot = stringToPublicKey(stringRootKey);
-	std::cout << "Root Key to String == Root to String(String to Root Key)?:	"
-			<< (stringRootKey.compare(publicKeyToString(stringToKeyRoot)))
-			<< std::endl; // 0 is valid
+	RSA *stringToKeyRoot = stringToPublicKey(stringRootKey);
+	std::cout << "Root Key to String == Root to String(String to Root Key):	"
+			  << (stringRootKey == publicKeyToString(stringToKeyRoot))
+			  << std::endl; // 0 is valid
 
-	RSA* keyPairACopy = RSA_new();
+	RSA *keyPairACopy = RSA_new();
 	copyRSAKey(keyPairA, keyPairACopy);
-	std::cout << "Key A Copy String == Key A String?:				"
-			<< (publicKeyToString(keyPairACopy).compare(publicKeyToString(keyPairA)))
-			<< std::endl; // 0 is valid
+	std::cout << "Key A Copy String == Key A String:				"
+			  << (publicKeyToString(keyPairACopy) == publicKeyToString(keyPairA))
+			  << std::endl; // 0 is valid
 
-	std::cout << "--------------------------------------------------------" << std::endl;
-// TODO: function to test deserialization
-// TODO: function to test serialization
-// TODO: function to test copy constructor
-// TODO: function to test
+	// generate key
+	// make string root function
+	// encrypt data normally
+	// decrypt with normal public key and the string to pub key version
+
+	RSA *publicKey = RSAPublicKey_dup(ROOT_KEY);
+	RSA *stringKey = stringToPublicKey(publicKeyToString(publicKey));
+	RSA *copyKey = RSA_new();
+	copyRSAKey(publicKey, copyKey);
+	std::string data = "Hello";
+
+	std::string encryptedData = signData(data, ROOT_KEY);
+	// std::cout << "Encrypted Data via Private Key:		" << encryptedData << std::endl;
+	std::cout << "Verified Data via Public Key:		" << (verifyData(encryptedData, publicKey) == "Hello") << std::endl;
+	std::cout << "Verified Data via String Public Key:	" << (verifyData(encryptedData, stringKey) == data) << std::endl;
+	std::cout << "Verified Data via Copy Public Key:	" << (verifyData(encryptedData, copyKey) == data) << std::endl;
+
+	/*
+
+	std::cout << "------------------X509 to String Functions-----------------" << std::endl;
+
+	std::cout << "Cert to String: " << certificateA.toString() << std::endl;
+
+	std::cout << "------------------String to X509 Functions-----------------" << std::endl;
+
+	x509 certC;
+	certC.fromString(certificateA.toString());
+	std::cout << "Certificate for C's public key" << std::endl;
+	std::cout << "Name:		" << certC.name << std::endl;
+	std::cout << "Public Key:	" << certC.public_key << std::endl;
+	std::cout << "Signature:	" << certC.signature << std::endl;
+	std::cout << "Location:	" << certC.location << std::endl;
+	std::cout << "Issue Date:	" << certC.issue_date << std::endl;
+	std::cout << "Valid Until:	" << certC.valid_until << std::endl;
+
+	std::string someString = "Hello";
+	std::string someEncryptedData = signData(someString, keyPairA);
+	std::string someDecryptedData = verifyData(someEncryptedData, stringToPublicKey(certC.public_key));
+	std::cout << "Encrypted Data:	" << someEncryptedData << std::endl;
+	std::cout << "Decrypted Data:	" << someDecryptedData << std::endl;
+	*/
+
+	std::cout << std::endl << std::endl << "------------------Array Test Functions-----------------" << std::endl;
+	std::cout << "1 = Pass" << std::endl;
+	RSA *keyPairOne = generateRSAKeyPair();
+	RSA *keyPairTwo = generateRSAKeyPair();
+	RSA *keyPairThree = generateRSAKeyPair();
+	RSA *keyPairFour = generateRSAKeyPair();
+	RSA *keyPairFive = generateRSAKeyPair();
+
+	RSA *pubKeyOne = RSAPublicKey_dup(keyPairOne);
+	RSA *pubKeyTwo = RSAPublicKey_dup(keyPairTwo);
+	RSA *pubKeyThree = RSAPublicKey_dup(keyPairThree);
+	RSA *pubKeyFour = RSAPublicKey_dup(keyPairFour);
+	RSA *pubKeyFive = RSAPublicKey_dup(keyPairFive);
+
+	x509 certOne("One", publicKeyToString(pubKeyOne), "", "CA", "", time(nullptr) * 1000, time(nullptr) * 1000 + +YEAR_IN_MS);
+	x509 certTwo("Two", publicKeyToString(pubKeyTwo), "", "CA", "", time(nullptr) * 1000, time(nullptr) * 1000 + +YEAR_IN_MS);
+	x509 certThree("Three", publicKeyToString(pubKeyThree), "", "CA", "", time(nullptr) * 1000, time(nullptr) * 1000 + +YEAR_IN_MS);
+	x509 certFour("Four", publicKeyToString(pubKeyFour), "", "CA", "", time(nullptr) * 1000, time(nullptr) * 1000 + +YEAR_IN_MS);
+	x509 certFive("Five", publicKeyToString(pubKeyFive), "", "CA", "", time(nullptr) * 1000, time(nullptr) * 1000 + +YEAR_IN_MS);
+
+	signCertificate(&certOne, ROOT_KEY, &ROOT_CERT);
+	signCertificate(&certTwo, ROOT_KEY, &ROOT_CERT);
+	signCertificate(&certThree, ROOT_KEY, &ROOT_CERT);
+	signCertificate(&certFour, ROOT_KEY, &ROOT_CERT);
+	signCertificate(&certFive, ROOT_KEY, &ROOT_CERT);
+
+	std::string *certArray = new std::string[5];
+	certArray[0] = certOne.toString();
+	certArray[1] = certTwo.toString();
+	certArray[2] = certThree.toString();
+	certArray[3] = certFour.toString();
+	certArray[4] = certFive.toString();
+
+	std::string resultStringArr = arrayToString(certArray, 5);
+
+	//std::cout << "resultStringArr: 	" << resultStringArr << std::endl;
+
+	std::string *certArrayTwo = stringToArray(resultStringArr,5);
+
+	for(int i = 0;i<5;i++){
+		x509 tempX509;
+		//std::cout << certArrayTwo[i] << std::endl << std::endl;
+		std::cout << "certArr[" << i << "] == certArrayTwo[" << i << "]	:	" << (certArray[i] == certArrayTwo[i]) << std::endl;
+		/*
+		tempX509.fromString(certArrayTwo[i]);
+		std::cout << "cert entry " << i+1 << " name:	" << tempX509.name << std::endl;
+		std::cout << "cert entry " << i+1 << " key:	" << tempX509.public_key << std::endl;
+		std::cout << "cert entry " << i+1 << " signature:	" << tempX509.signature << std::endl;
+		std::cout << "cert entry " << i+1 << " location:	" << tempX509.location << std::endl;
+		std::cout << "cert entry " << i+1 << " issuer:	" << tempX509.issuer << std::endl;
+		std::cout << "cert entry " << i+1 << " issue_date:	" << tempX509.issue_date << std::endl;
+		std::cout << "cert entry " << i+1 << " valid until:	" << tempX509.valid_until<< std::endl;
+		std::cout << std::endl << std::endl;
+		*/
+	}
 
 
+	RSA_free(keyPairOne);
+	RSA_free(keyPairTwo);
+	RSA_free(keyPairThree);
+	RSA_free(keyPairFour);
+	RSA_free(keyPairFive);
 	RSA_free(keyPairA);
 	RSA_free(pubKeyA);
 	RSA_free(keyPairB);
 	RSA_free(pubKeyB);
 	RSA_free(keyPairACopy);
+	RSA_free(publicKey);
+	RSA_free(copyKey);
+	RSA_free(stringKey);
 	return 0;
-
 }
