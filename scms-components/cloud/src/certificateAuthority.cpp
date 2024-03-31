@@ -1,38 +1,45 @@
+/*
+ * certificateAuthority.cpp
+ *
+ *  Created on: Mar. 31, 2024
+ *      Author: Muaadh Ali
+ */
 #include "certificateAuthority.hpp"
 
 #include <iostream>
 
-certificateAuthority::certificateAuthority{
-    *key_pair = generateRSAKeyPair();    
+certificateAuthority::certificateAuthority(){
+    key_pair = generateRSAKeyPair();
+    long int t = static_cast<long int> (time(NULL));
+	name = typeid(this).name();
+	std::string location = std::string(typeid(this).name()) + " Location";
+	long issue_date = t;
+	long valid_until = t + 604800;
+
+	cert = x509(name, publicKeyToString(RSAPublicKey_dup(key_pair)), "", "CA", "", issue_date, valid_until);
 }
 
 certificateAuthority::~certificateAuthority() {
-    delete key_pair;
+    RSA_free(key_pair);
 }
 
-x509 certificateAuthority::get_cert() {
-    return cert;
+x509* certificateAuthority::get_cert() {
+    return &cert;
 }
 
-x509 certificateAuthority::issue_cert(std::tuple<int, int> key_p) {
-    //Do
+void certificateAuthority::issue_cert(x509 *certificate) {
+    signCertificate(certificate, key_pair, &cert);
 }
 
-bool rootCertificateAuthority::self_sign() {
+rootCertificateAuthority::rootCertificateAuthority() : certificateAuthority() {
 
-    cert = generateRootCert(RSAPublicKey_dup(key_pair));
-
-    return cert != NULL;
 }
 
-enrollmentCertificateAuthority::enrollmentCertificateAuthority(x509* root) : certificateAuthority() {
-    long int t = static_cast<long int> (time(NULL));
-    std::string name = typeid(this);
-    std::string location = typeid(this) + " Location";
-    long issue_date = t;
-    long valid_until = t + 604800;
+void rootCertificateAuthority::self_sign() {
+    cert = ROOT_CERT;
+}
 
-    cert = x509(name, RSAPublicKey_dup(key_pair), "", location, root, issue_date, valid_until);
+enrollmentCertificateAuthority::enrollmentCertificateAuthority() : certificateAuthority() {
 
 }
 
@@ -46,14 +53,7 @@ bool enrollmentCertificateAuthority::enroll_device(x509 *certificate) {
     
 }
 
-pseudonymCertificateAuthority::pseudonymCertificateAuthority(x509* root) : certificateAuthority() {
-    long int t = static_cast<long int> (time(NULL));
-    std::string name = typeid(this);
-    std::string location = typeid(this) + " Location";
-    long issue_date = t;
-    long valid_until = t + 604800;
-
-    cert = x509(name, RSAPublicKey_dup(key_pair), "", location, root, issue_date, valid_until);
+pseudonymCertificateAuthority::pseudonymCertificateAuthority() : certificateAuthority() {
 
 }
 
@@ -66,16 +66,16 @@ void printcert(x509 a) {
         << a.valid_until;
 }
 
-int main() {
-    certificateAuthority* a = new certificateAuthority("a", 1, "someSignature", "someLocation", 1, 123, 321);
-
-    std::cout << "printing a.cert ";
-
-    printcert(a->get_cert());
-    
-    x509 temp = a->issue_cert({345, 543});
-
-    printcert(temp);
-
-    return 0;
-}
+//int main() {
+//    certificateAuthority* a = new certificateAuthority("a", 1, "someSignature", "someLocation", 1, 123, 321);
+//
+//    std::cout << "printing a.cert ";
+//
+//    printcert(a->get_cert());
+//
+//    x509 temp = a->issue_cert({345, 543});
+//
+//    printcert(temp);
+//
+//    return 0;
+//}

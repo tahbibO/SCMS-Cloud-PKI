@@ -20,11 +20,16 @@ LD = $(CXX)
 
 #INCLUDES += -I/path/to/my/lib/include
 #INCLUDES += -I../mylib/public
+INCLUDES += -I../../../include
 
 #LIBS += -L/path/to/my/lib/$(PLATFORM)/usr/lib -lmylib
 #LIBS += -L../mylib/$(OUTPUT_DIR) -lmylib
 
+
+LIBS += -lssl -lcrypto -lsocket
+
 #Compiler flags for build profiles
+CCFLAGS_all += -std=gnu++17
 CCFLAGS_release += -O2
 CCFLAGS_debug += -g -O0 -fno-builtin
 CCFLAGS_coverage += -g -O0 -ftest-coverage -fprofile-arcs -nopipe -Wc,-auxbase-strip,$@

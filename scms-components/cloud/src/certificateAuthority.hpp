@@ -1,3 +1,9 @@
+/*
+ * certificateAuthority.hpp
+ *
+ *  Created on: Mar. 31, 2024
+ *      Author: Muaadh Ali
+ */
 #ifndef CERTIFICATEAUTHORITY_HPP
 #define CERTIFICATEAUTHORITY_HPP
 
@@ -7,7 +13,7 @@
 #include <random>
 #include <unordered_set>
 #include <time.h>
-#include "../../../crypto-lib/src/crypto-defs.h"
+#include "../../../include/crypto-defs.h"
 
 
 
@@ -15,8 +21,8 @@ class certificateAuthority {
     public:
         certificateAuthority();
         ~certificateAuthority();
-        x509 issue_cert(std::tuple<int, int>);
-        x509 get_cert();
+        void issue_cert(x509*);
+        x509* get_cert();
         std::string name; 
     protected:
         x509 cert;
@@ -25,18 +31,19 @@ class certificateAuthority {
 
 class rootCertificateAuthority : public certificateAuthority {
     public:
-        bool self_sign();
+		rootCertificateAuthority();
+        void self_sign();
 };
 
 class enrollmentCertificateAuthority : public certificateAuthority {
     public:
-        enrollmentCertificateAuthority(x509*);
-        x509 enroll_device(x509*);
+        enrollmentCertificateAuthority();
+        bool enroll_device(x509*);
 };
 
 class pseudonymCertificateAuthority : public certificateAuthority {
     public:
-        pseudonymCertificateAuthority(x509*);
+        pseudonymCertificateAuthority();
 };
 
 #endif

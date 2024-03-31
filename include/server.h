@@ -13,14 +13,17 @@
 #include <string.h>
 #include <chrono>
 #include <thread>
+#include "../scms-components/cloud/src/certificateAuthority.hpp"
 
 class Server
 {
 private:
-    std::unordered_map<std::string, std::function<void(const Message &, Message &, int, Server *)>> routes;
+    std::unordered_map<std::string, std::function<void(const Message &, Message &, int, Server *, certificateAuthority *)>> routes;
     int serverSocket;
     int port;
     bool logging;
+    certificateAuthority* ca;
+
     void log(std::string message)
     {
         if (logging)
@@ -30,7 +33,8 @@ private:
     }
 
 public:
-    Server(int portNumber, bool logging = false) : serverSocket(-1), port(portNumber), logging(logging)
+
+    Server(int portNumber, bool logging = false, certificateAuthority* certA = nullptr) : serverSocket(-1), port(portNumber), logging(logging), ca(certA)
     {
         log("Created Server Object");
     }
@@ -40,11 +44,13 @@ public:
         stopServer();
     }
 
-    void addRoute(const std::string &path, const std::function<void(const Message &, Message &, int, Server *)> &handler)
+    void addRoute(const std::string &path, const std::function<void(const Message &, Message &, int, Server *, certificateAuthority *)> &handler)
     {
         log("Function added to route: " + path);
         routes[path] = handler;
     }
+
+
 
     void startServer()
     {
@@ -122,7 +128,7 @@ public:
                 {
                     // Call the handler function and pass the request
                     log("Handling request for: " + std::string(request.path));
-                    routes[std::string(request.path)](request, response, clientSocket, this);
+                    routes[std::string(request.path)](request, response, clientSocket, this, ca);
                 }
                 else
                 {
