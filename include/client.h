@@ -5,14 +5,16 @@
 #include <unistd.h>
 #include <cstring>
 #include <iostream>
-#include "message.h"
+#include <arpa/inet.h>
+
+#include "networking-defs.h"
 
 class Client
 {
 private:
     int sockfd;
     bool logging;
-    void Client::log(std::string message)
+    void log(std::string message)
     {
         if (logging)
         {
@@ -21,12 +23,12 @@ private:
     }
 
 public:
-    Client::Client(bool logging = false) : sockfd(-1), logging(logging)
+    Client(bool logging = false) : sockfd(-1), logging(logging)
     {
         log("Creating Client");
     }
 
-    Client::~Client()
+    ~Client()
     {
         // Close socket
         log("Destroying Client");
@@ -60,6 +62,8 @@ public:
             return false;
         }
 
+        log("Converting Request to buffer");
+
         // Send the request message
         char buffer[sizeof(Message)];
         memcpy(buffer, &request, sizeof(buffer));
@@ -71,9 +75,11 @@ public:
             return false;
         }
 
+        log("Request sent");
+
         // Receive the response
         char response_buffer[sizeof(Message)];
-        char bytesRead = recv(sockfd, &response_buffer, sizeof(response_buffer), 0);
+        size_t bytesRead = recv(sockfd, &response_buffer, sizeof(response_buffer), 0);
         log("Received " + std::to_string(bytesRead) + " bytes");
         if (bytesRead == -1)
         {
@@ -83,7 +89,9 @@ public:
         }
 
         // Process the response
-        memcpy(&response, response_buffer, bytesRead);
+        memcpy(&response, response_buffer, sizeof(Message));
+
+        log("Response processed");
 
         // Close socket
         close(sockfd);

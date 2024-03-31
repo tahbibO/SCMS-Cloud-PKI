@@ -147,16 +147,13 @@ int main()
 	std::cout << "Verified Data via String Public Key:	" << (verifyData(encryptedData, stringKey) == data) << std::endl;
 	std::cout << "Verified Data via Copy Public Key:	" << (verifyData(encryptedData, copyKey) == data) << std::endl;
 
-	/*
+	std::cout << std::endl << "------------------Certificate Conversion  Functions-----------------" << std::endl;
+	std::cout << "1 = Pass" << std::endl;
 
-	std::cout << "------------------X509 to String Functions-----------------" << std::endl;
-
-	std::cout << "Cert to String: " << certificateA.toString() << std::endl;
-
-	std::cout << "------------------String to X509 Functions-----------------" << std::endl;
 
 	x509 certC;
 	certC.fromString(certificateA.toString());
+	/*
 	std::cout << "Certificate for C's public key" << std::endl;
 	std::cout << "Name:		" << certC.name << std::endl;
 	std::cout << "Public Key:	" << certC.public_key << std::endl;
@@ -164,15 +161,14 @@ int main()
 	std::cout << "Location:	" << certC.location << std::endl;
 	std::cout << "Issue Date:	" << certC.issue_date << std::endl;
 	std::cout << "Valid Until:	" << certC.valid_until << std::endl;
+	*/
 
 	std::string someString = "Hello";
 	std::string someEncryptedData = signData(someString, keyPairA);
 	std::string someDecryptedData = verifyData(someEncryptedData, stringToPublicKey(certC.public_key));
-	std::cout << "Encrypted Data:	" << someEncryptedData << std::endl;
-	std::cout << "Decrypted Data:	" << someDecryptedData << std::endl;
-	*/
+	std::cout << "Decrypted Data == Data:	" << (someDecryptedData == "Hello") << std::endl;
 
-	std::cout << std::endl << std::endl << "------------------Array Test Functions-----------------" << std::endl;
+	std::cout << std::endl << "------------------Array Test Functions-----------------" << std::endl;
 	std::cout << "1 = Pass" << std::endl;
 	RSA *keyPairOne = generateRSAKeyPair();
 	RSA *keyPairTwo = generateRSAKeyPair();
@@ -207,7 +203,7 @@ int main()
 
 	std::string resultStringArr = arrayToString(certArray, 5);
 
-	//std::cout << "resultStringArr: 	" << resultStringArr << std::endl;
+	std::cout << "resultStringArr: 	" << 5*resultStringArr.length() << std::endl;
 
 	std::string *certArrayTwo = stringToArray(resultStringArr,5);
 

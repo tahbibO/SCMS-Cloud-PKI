@@ -13,7 +13,7 @@ public:
     char path[64];
     char dataType[64];
     size_t dataSize;
-    char data[4096];
+    char data[49152];
 
     Message(){};
     virtual ~Message(){};
@@ -31,7 +31,8 @@ public:
     virtual void setData(std::string data)
     {
         this->dataSize = data.length();
-        std::strncpy(this->data, data.c_str(), data.length());
+        std::strcpy(this->data,data.c_str());
+
     }
 };
 
@@ -39,7 +40,7 @@ std::string arrayToString(std::string *&arr, int size)
 {
     std::string result;
     std::string delimiter = "<SPLIT>";
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < size+1; ++i)
     {
         result += arr[i];
         if (i < size)

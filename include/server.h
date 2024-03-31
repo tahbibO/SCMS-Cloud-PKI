@@ -105,33 +105,35 @@ public:
             int clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddr, &clientAddrLen);
             if (clientSocket == -1)
             {
-                std::cerr << "Error accepting connection\n";
-                stopServer();
-                return;
+                std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+            	std::cerr << "Error accepting connection: " << std::strerror(errno) << std::endl;
+            	std::cerr << "Error accepting connection: " << errno << std::endl;
+            }else{
+                // Read the request message
+                char buffer[sizeof(Message)];
+                Message request, response;
+                int bytesRead = recv(clientSocket, buffer, sizeof(request), 0);
+                memcpy(&request, buffer, bytesRead);
+
+                log("Received " + std::to_string(bytesRead) + " bytes");
+
+                // Find the corresponding handler for the route
+                if (routes.find(std::string(request.path)) != routes.end())
+                {
+                    // Call the handler function and pass the request
+                    log("Handling request for: " + std::string(request.path));
+                    routes[std::string(request.path)](request, response, clientSocket, this);
+                }
+                else
+                {
+                    // return 404 if route not found
+                    log("Route not found: " + std::string(request.path));
+                    response.setHeaders(404, "", port, "", "empty");
+                    sendMessage(response, clientSocket);
+                }
             }
 
-            // Read the request message
-            char buffer[sizeof(Message)];
-            Message request, response;
-            int bytesRead = recv(clientSocket, buffer, sizeof(request), 0);
-            memcpy(&request, buffer, bytesRead);
 
-            log("Received " + std::to_string(bytesRead) + " bytes");
-
-            // Find the corresponding handler for the route
-            if (routes.find(std::string(request.path)) != routes.end())
-            {
-                // Call the handler function and pass the request
-                log("Handling request for: " + std::string(request.path));
-                routes[std::string(request.path)](request, response, clientSocket, this);
-            }
-            else
-            {
-                // return 404 if route not found
-                log("Route not found: " + std::string(request.path));
-                response.setHeaders(404, "", port, "", "empty");
-                sendMessage(response, clientSocket);
-            }
         }
     }
 

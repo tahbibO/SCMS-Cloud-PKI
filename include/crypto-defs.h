@@ -190,7 +190,7 @@ struct x509
 		ss << "public_key:" << this->public_key << ";";
 		ss << "location:" << this->location << ";";
 		ss << "issuer:" << this->issuer << ";";
-		ss << "issue_data:" << this->issue_date << ";";
+		ss << "issue_date:" << this->issue_date << ";";
 		ss << "valid_until:" << this->valid_until << ";";
 		ss << "signature:" << this->signature << ";";
 
@@ -228,10 +228,13 @@ struct x509
 				}
 				else if (key == "issuer")
 				{
+					std::cout << "func: fromString, value: " << value << std::endl;
+
 					this->issuer = value;
 				}
 				else if (key == "issue_date")
 				{
+					std::cout << "func: fromString, value: " << value << std::endl;
 					this->issue_date = std::stol(value);
 				}
 				else if (key == "valid_until")
