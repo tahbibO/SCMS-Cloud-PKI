@@ -104,6 +104,8 @@ public:
         // creating a client socket
         struct sockaddr_in clientAddr;
         socklen_t clientAddrLen = sizeof(clientAddr);
+        std::cout << "clientAddrLen: " << clientAddrLen << std::endl;
+
 
         while (true)
         {
@@ -111,9 +113,11 @@ public:
             int clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddr, &clientAddrLen);
             if (clientSocket == -1)
             {
-                std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+                //std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+
             	std::cerr << "Error accepting connection: " << std::strerror(errno) << std::endl;
             	std::cerr << "Error accepting connection: " << errno << std::endl;
+
             }else{
                 // Read the request message
                 char buffer[sizeof(Message)];

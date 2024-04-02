@@ -11,6 +11,8 @@
 #include "../../../include/server.h"
 #include "../../../include/networking-defs.h"
 #include "../../../include/crypto-defs.h"
+#include "../../../scms-components/cloud/src/certificateAuthority.hpp"
+
 
 
 
@@ -23,21 +25,21 @@
 int main()
 {
 
-    Server server = Server(30, true);
+    Server server = Server(3000, true);
 
     // Add routes and corresponding route handler functions
-    server.addRoute("/", [](const Message &request, Message &response, int clientSocket, Server *in_server){
+    server.addRoute("/", [](const Message &request, Message &response, int clientSocket, Server *in_server, certificateAuthority * in_ca ){
 		// Send response
-		response.setHeaders(200,"",30,"/","text/plain");
+		response.setHeaders(200,"",3000,"/","text/plain");
 		response.setData("Hello from server");
 		in_server->sendMessage(response, clientSocket);
 
 		std::cout << "send data!" << std::endl;
     });
 
-    server.addRoute("/cert", [](const Message &request, Message &response, int clientSocket, Server *in_server){
+    server.addRoute("/cert", [](const Message &request, Message &response, int clientSocket, Server *in_server, certificateAuthority * in_ca){
 		// Send response
-		response.setHeaders(200,"",30,"/","certificate");
+		response.setHeaders(200,"",3000,"/","certificate");
 		RSA* key = generateRSAKeyPair();
 		std::string stringKey = publicKeyToString(RSAPublicKey_dup(key));
 		x509 newCert("new Cert", stringKey, "","CA", "", 500, 5+ 10);
@@ -51,44 +53,6 @@ int main()
 
 		std::cout << "send data!" << std::endl;
     });
-
-/*	getting multiple certs does not work reliably
-    server.addRoute("/certArr", [](const Message &request, Message &response, int clientSocket, Server *in_server){
-
-    	RSA *keyPairOne = generateRSAKeyPair();
-    	RSA *keyPairTwo = generateRSAKeyPair();
-    	RSA *keyPairThree = generateRSAKeyPair();
-
-    	RSA *pubKeyOne = RSAPublicKey_dup(keyPairOne);
-    	RSA *pubKeyTwo = RSAPublicKey_dup(keyPairTwo);
-    	RSA *pubKeyThree = RSAPublicKey_dup(keyPairThree);
-
-    	x509 certOne("One", publicKeyToString(pubKeyOne), "", "CA", "", time(nullptr) * 1000, time(nullptr) * 1000 + +YEAR_IN_MS);
-    	x509 certTwo("Two", publicKeyToString(pubKeyTwo), "", "CA", "", time(nullptr) * 1000, time(nullptr) * 1000 + +YEAR_IN_MS);
-    	x509 certThree("Three", publicKeyToString(pubKeyThree), "", "CA", "", time(nullptr) * 1000, time(nullptr) * 1000 + +YEAR_IN_MS);
-
-    	signCertificate(&certOne, ROOT_KEY, &ROOT_CERT);
-    	signCertificate(&certTwo, ROOT_KEY, &ROOT_CERT);
-    	signCertificate(&certThree, ROOT_KEY, &ROOT_CERT);
-
-    	std::string *certArray = new std::string[3];
-    	certArray[0] = certOne.toString();
-    	certArray[1] = certTwo.toString();
-    	certArray[2] = certThree.toString();
-
-    	std::string stringCertArr= arrayToString(certArray, 3);
-		std::cout << "------------------stringCertArr------------------" << std::endl << stringCertArr << std::endl;
-
-
-    	response.setHeaders(200,"",30,"/","certificates");
-    	response.setData(stringCertArr);
-		std::cout << "------------------ResponseData------------------" << std::endl << std::string(response.data) << std::endl;
-
-    	in_server->sendMessage(response, clientSocket);
-
-		std::cout << "send data!" << std::endl;
-    });
-    */
 
     server.startServer();
 

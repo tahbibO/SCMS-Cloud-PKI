@@ -32,18 +32,19 @@ int main() {
 	Message request;
 	Message response;
 	cout << "created response and request!!!" << endl; // prints Hello World!!!
-
-	request.setHeaders(0,"3.84.121.28",30,"/cert","certificate");
+	std::string ip_address = "54.165.85.13";
+	int port= 3000;
+	request.setHeaders(0,ip_address,port,"/cert","certificate");
 	cout << "set headers!!!" << endl; // prints Hello World!!!
 
 	request.setData("Hello from Client");
 	cout << "set data!!!" << endl; // prints Hello World!!!
 
-	client.sendMessage(request,response,"192.168.152.133",30);
+	client.sendMessage(request,response,ip_address.c_str(),port);
 
 	cout << "Sent Data!!!" << endl; // prints Hello World!!!
 	if (std::string(response.dataType) == "certificate"){
-		/*
+
 		std::cout << "string response: " << std::string(response.data) << std::endl;
 		x509 tempCert;
 		tempCert.fromString(std::string(response.data));
@@ -54,7 +55,7 @@ int main() {
 		std::cout << "Cert Issuer:	" << tempCert.issuer << std::endl;
 		std::cout << "Cert Issue Date:	" << tempCert.issue_date << std::endl;
 		std::cout << "Cert Valid Until:	" << tempCert.valid_until << std::endl;
-		*/
+
 	}
 
 
