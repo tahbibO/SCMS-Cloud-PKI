@@ -8,10 +8,23 @@
 #include "../../include/crypto-defs.h"
 #include "../../include/networking-defs.h"
 
+
+
 int main()
 {
 
 	std::cout << "-----------------KEY GENERATION----------------" << std::endl;
+	RSA* test = readPrivateKeyFromFile("ROOT_PRIVATE_KEY.pem");
+	std::cout << "File Public Key: " << RSAPublicKey_dup(test) << std::endl;
+	std::cout << "Root Public Key: " << RSAPublicKey_dup(ROOT_KEY) << std::endl;
+	//encrypt with test and decrypt with root
+	auto dat = "Mama";
+	std::string e_data = signData(dat,test);
+	std::cout << "e_data: " << e_data <<std::endl;
+	std::string d_data = verifyData(e_data,RSAPublicKey_dup(ROOT_KEY));
+	std::cout << "d_data: " << d_data <<std::endl;
+
+	RSA_free(test);
 
 	// add null checks
 	RSA *keyPairA = generateRSAKeyPair();
@@ -238,5 +251,6 @@ int main()
 	RSA_free(publicKey);
 	RSA_free(copyKey);
 	RSA_free(stringKey);
+	RSA_free(ROOT_KEY);
 	return 0;
 }

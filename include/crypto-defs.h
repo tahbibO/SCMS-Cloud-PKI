@@ -24,66 +24,13 @@
 #include <openssl/rand.h>
 #include <openssl/err.h>
 #include <cstring>
+#include <fstream>
 
 #define YEAR_IN_MS 31536000000
 #define MSG_LENGTH 1024
 #define ECDSA_SIGNATURE_SIZE 64
 
-inline void handleOpenSSLErrors()
-{
-	ERR_print_errors_fp(stderr);
-}
 
-// Function to convert RSA public key to string
-inline std::string publicKeyToString(RSA *rsaKey)
-{
-	BIO *bio = BIO_new(BIO_s_mem());
-	if (!PEM_write_bio_RSA_PUBKEY(bio, rsaKey))
-	{
-		BIO_free(bio);
-		return "";
-	}
-
-	char *buffer;
-	long length = BIO_get_mem_data(bio, &buffer);
-	std::string publicKeyStr(buffer, length);
-
-	BIO_free(bio);
-	return publicKeyStr;
-}
-
-// Function to copy RSA key from one object to another
-inline bool copyRSAKey(RSA *rsaKeySrc, RSA *rsaKeyDest)
-{
-	if (!rsaKeySrc || !rsaKeyDest)
-	{
-		std::cerr << "Invalid RSA key objects." << std::endl;
-		return false;
-	}
-
-	// Copy RSA key components
-	if (!RSA_set0_key(rsaKeyDest, BN_dup(RSA_get0_n(rsaKeySrc)), BN_dup(RSA_get0_e(rsaKeySrc)), nullptr))
-	{
-		std::cerr << "Error setting RSA key components." << std::endl;
-		return false;
-	}
-
-	return true;
-}
-
-// Function to convert string to RSA public key
-inline RSA *stringToPublicKey(const std::string &publicKeyStr)
-{
-	BIO *bio = BIO_new_mem_buf(publicKeyStr.c_str(), publicKeyStr.length());
-	if (!bio)
-	{
-		return nullptr;
-	}
-
-	RSA *rsaKey = PEM_read_bio_RSA_PUBKEY(bio, nullptr, nullptr, nullptr);
-	BIO_free(bio);
-	return rsaKey;
-}
 
 struct x509
 {
@@ -246,6 +193,100 @@ struct x509
 	}
 };
 
+inline void handleOpenSSLErrors()
+{
+	ERR_print_errors_fp(stderr);
+}
+
+// Function to convert RSA public key to string
+inline std::string publicKeyToString(RSA *rsaKey)
+{
+	BIO *bio = BIO_new(BIO_s_mem());
+	if (!PEM_write_bio_RSA_PUBKEY(bio, rsaKey))
+	{
+		BIO_free(bio);
+		return "";
+	}
+
+	char *buffer;
+	long length = BIO_get_mem_data(bio, &buffer);
+	std::string publicKeyStr(buffer, length);
+
+	BIO_free(bio);
+	return publicKeyStr;
+}
+
+// Function to convert string to RSA public key
+inline RSA *stringToPublicKey(const std::string &publicKeyStr)
+{
+	BIO *bio = BIO_new_mem_buf(publicKeyStr.c_str(), publicKeyStr.length());
+	if (!bio)
+	{
+		return nullptr;
+	}
+
+	RSA *rsaKey = PEM_read_bio_RSA_PUBKEY(bio, nullptr, nullptr, nullptr);
+	BIO_free(bio);
+	return rsaKey;
+}
+
+// Function to convert RSA private key to string
+inline std::string privateKeyToString(RSA *rsaKey)
+{
+	BIO *bio = BIO_new(BIO_s_mem());
+	if (!PEM_write_bio_RSAPrivateKey(bio, rsaKey, nullptr, nullptr, 0, nullptr, nullptr))
+	{
+		BIO_free(bio);
+		return "";
+	}
+
+	char *buffer;
+	long length = BIO_get_mem_data(bio, &buffer);
+	std::string privateKeyStr(buffer, length);
+	std::cout << "private key \n" << privateKeyStr << std::endl;
+	BIO_free(bio);
+	return privateKeyStr;
+}
+
+// Function to convert string to RSA private key
+inline RSA *stringToPrivateKey(const std::string &privateKeyStr)
+{
+	BIO *bio = BIO_new_mem_buf(privateKeyStr.c_str(), privateKeyStr.length());
+	if (!bio)
+	{
+		std::cerr << "Error, could not read file" << std::endl;
+		return nullptr;
+	}
+
+	RSA *rsaKey = PEM_read_bio_RSAPrivateKey(bio, nullptr, nullptr, nullptr);
+
+	BIO_free(bio);
+	std::cout << "key: " << RSAPublicKey_dup(rsaKey) <<"\n";
+
+	return rsaKey;
+}
+
+// Function to copy RSA key from one object to another
+inline bool copyRSAKey(RSA *rsaKeySrc, RSA *rsaKeyDest)
+{
+	if (!rsaKeySrc || !rsaKeyDest)
+	{
+		std::cerr << "Invalid RSA key objects." << std::endl;
+		return false;
+	}
+
+	// Copy RSA key components
+	if (!RSA_set0_key(rsaKeyDest, BN_dup(RSA_get0_n(rsaKeySrc)), BN_dup(RSA_get0_e(rsaKeySrc)), nullptr))
+	{
+		std::cerr << "Error setting RSA key components." << std::endl;
+		return false;
+	}
+
+
+	return true;
+}
+
+
 // Generates private key
 inline RSA *generateRSAKeyPair()
 {
@@ -353,6 +394,8 @@ inline bool verifyCertificate(x509 *certificate, std::map<std::string, RSA *> ke
 	}
 
 	// cannot find issuer in cert map
+
+
 	if (certMap.find(certificate->issuer) == certMap.end())
 	{
 		std::cerr << "Certificate Issuer is null" << std::endl;
@@ -377,34 +420,43 @@ inline bool verifyCertificate(x509 *certificate, std::map<std::string, RSA *> ke
 	return verifyCertificate(nextCert, keyMap, certMap);
 }
 
+RSA* readPrivateKeyFromFile(const std::string& filename) {
+    RSA* rsaKey = nullptr;
 
-inline std::string STRING_ROOT_PRIVATE_KEY = "-----BEGIN RSA PRIVATE KEY-----"
-		"MIIEowIBAAKCAQEAnVMI3YnnTFFFf0MyWqYJN3DbbQhGskTcpjH7pyxEaWsy1Sfv"
-		"wb8Vg0vGMA8km3qd5HGQXR8BMrhuRSNbBAxwcCCLZKNB8wN7N5I+ZkC/46YOs6bQ"
-		"fWg7WsOk7sSiBr+qsDNNDHpmSff39HeDUYBbUIEyyFENeJ72lCvME+0fBgv9KIaT"
-		"zGYxFny8NtVdY2cpxNNdBvGzLW+l8UxQ8bV+F98ARh08zr7ex18RSP2/QV3aFpvm"
-		"qfLqbQlUMB3W/s6TZWZRkE0cPC9IYq5bsR35NT7JCfn0MBX2wmzxbw6hnwBgMPNM"
-		"BhBqFsCVegc0lMgR+0nvEIgIhZ2C4T6msjgWnwIDAQABAoIBAAw07iIqWgz83VST"
-		"hSutaFep5QyfsMSSPUCT7j+5WpGHZMlPMPYqemPWlEkUU7XQnMGl4hqnljM2RjAN"
-		"HznAMVUx4T7sv+g4I+5a5YaPjZP/RXLBBbpFRR20wm5YSW4WnwrO4DKQqLEikVWh"
-		"lEnVmMA1Vhhe2Zm7U8yJXWtKYbbZRiSk6UIvsYnks81TNGToIjagZyjpilAPGcFy"
-		"kwlOrp02yt8FR4+fvwZUg8jn7ZT2ysdOwb0pXgFYsEV2OyDLJtBsCZ99/dPX9UWL"
-		"Tj1IJVZ/ssQEq4WxI3mXpXVz3XTilVfh4qPkHRAgb+Tv4Ef0j+G7C1VEMdHMvmKJ"
-		"kYcjAwECgYEAy/pwpgCcw+qivg4pZTo8fWm4aFPXuCXMOaS3KUyIqABSotrsLP5V"
-		"v5eB7QuV1E/9qSsArAnem9eNcZg17oVKNOTMX4pS65IXTyNG9FJEh+E8zrDB0tze"
-		"fgH1cO3BNmydCvbD5/1HFoIb7W5sxGyWESavayKrULlKovH1h/FuHx8CgYEAxXKZ"
-		"76dj8k1ReY0OwjySraBl7dZBvbsYLjJ83VfcVwdRJ+mMQY8ZSy8U3eNN6mT/V4d+"
-		"yD9c5RO2TbfZYRkYDFy2o6lDRhGpkCd2HXxurpCFAqtoySd8FRV98YXRLIfrtCck"
-		"vejuVO2GmZPlfYG3Ei86DYEKumqTzzTQMLDAmIECgYEAthnjL5AkZBO5LoteEW0o"
-		"S55yb1FKqK+131BZ5Jja94EyRQnFB3YX/2+3InTRUjYHc1tcwjodbmvFbsBAhayh"
-		"Tw9kFXdcB8ro3FHWKpC3dcdzjeLnZuSgDUaaZDMd5wSYPw2GYDoRmNqXLCUFHWcD"
-		"olQzDyZoYyzIoSf511+GvGkCgYAfmppdK9PposqZxCRKnttzgysNiK/5KItUSayG"
-		"2VthasBovQ9AJyGLUTvr0EhWblgYsI1wjAPYfvE9O2JGEngw8l4hkCQ+gPE9K7PS"
-		"QGqO8n730GvzVqibz1bbY+n5UMA/k8xjwXb0jRhwWKXxEuQ0uu513uPStuB12CRC"
-		"xuftAQKBgB0NaznOV0Uhgrb1nr0Hs5IOJmnYkTQPMsS/BIjDN0G1evKqTBzLlNac"
-		"qrcLmXUkok0lXIw4ncLjzwqZAWl9h1l/nL2+XYVLDLHrXpGikfAaQ5xscie0Haon"
-		"SXjL5K1x5jhLl33s8k/pl2d05JQNAF18Ro7astn8lFS2BtTQs+ev"
-		"-----END RSA PRIVATE KEY-----"
+    // Open the file
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return nullptr;
+    }
 
-inline RSA *ROOT_KEY = stringToPrivateKey(STRING_ROOT_PRIVATE_KEY);
+    // Read the private key from the file
+    std::string privateKeyStr;
+    std::string line;
+    while (std::getline(file, line)) {
+        privateKeyStr += line + "\n"; // Add newline as getline removes it
+    }
+
+    // Close the file
+    file.close();
+
+    // Convert string to RSA private key
+    BIO* bio = BIO_new_mem_buf(privateKeyStr.c_str(), privateKeyStr.length());
+    if (!bio) {
+        std::cerr << "Error creating BIO" << std::endl;
+        return nullptr;
+    }
+
+    rsaKey = PEM_read_bio_RSAPrivateKey(bio, nullptr, nullptr, nullptr);
+    BIO_free(bio);
+
+    if (!rsaKey) {
+        std::cerr << "Error reading RSA private key" << std::endl;
+        return nullptr;
+    }
+
+    return rsaKey;
+}
+
+inline RSA *ROOT_KEY = readPrivateKeyFromFile("ROOT_PRIVATE_KEY.pem");
 inline x509 ROOT_CERT = generateRootCert(publicKeyToString(RSAPublicKey_dup(ROOT_KEY)));

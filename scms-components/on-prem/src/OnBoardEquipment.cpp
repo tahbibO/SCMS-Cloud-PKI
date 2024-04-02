@@ -28,6 +28,5 @@ OnBoardEquipment::~OnBoardEquipment() {
 //		RSA_free(pair.second);
 //		std::cout << "Key: " << pair.first << ", Value: " << pair.second << std::endl;
 //	}
-	// TODO Auto-generated destructor stub
 	std::cout << "OnBoardEquipment Destructor" << std::endl;
 }
