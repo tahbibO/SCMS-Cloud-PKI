@@ -6,24 +6,28 @@
  */
 
 #include "OnBoardEquipment.h"
+int OnBoardEquipment::ID = 0;
+OnBoardEquipment::OnBoardEquipment(x509* cert, std::vector<std::tuple<std::string, std::string, int>> CAs) {
+	for(int i = 0; i < CAs.size(); i++){
+		Network network = {std::get<1>(CAs.at(i)), std::get<2>(CAs.at(i))};
+		addressMap[std::get<0>(CAs.at(i))] = network;
 
-OnBoardEquipment::OnBoardEquipment(string ID) {
-	this->ID = ID;
-	// TODO Auto-generated constructor stub
-	cout << "OnBoardEquipment Constructor " << this->ID << endl;
+	}
+	id = ++ID;
+	certificateMap["root"] = cert;
+	RSA* pubKey = stringToPublicKey(cert.public_key);
+
+//		for (const auto& pair : addressMap) {
+//			std::cout << "Key: " << pair.first << ", Value: " << pair.second.ip << std::endl;
+//		}
 }
 
 OnBoardEquipment::~OnBoardEquipment() {
+
+//	for (const auto& pair : myMap) {
+//		RSA_free(pair.second);
+//		std::cout << "Key: " << pair.first << ", Value: " << pair.second << std::endl;
+//	}
 	// TODO Auto-generated destructor stub
-	cout << "OnBoardEquipment Destructor" << endl;
-}
-
-int OnBoardEquipment::sendMessage(string inMessage, string inHeader){
-	cout << "Send message " << inMessage << " " << inHeader << endl;
-	return 0;
-}
-
-int OnBoardEquipment::receiveMessage(string outMessage, string outHeader){
-	cout << "Receive message " << outMessage << " " << outHeader << endl;
-	return 0;
+	std::cout << "OnBoardEquipment Destructor" << std::endl;
 }

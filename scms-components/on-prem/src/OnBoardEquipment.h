@@ -8,7 +8,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
-using namespace std;
+#include "../../../include/crypto-defs.h"
 
 #ifndef SRC_ONBOARDEQUIPMENT_H_
 #define SRC_ONBOARDEQUIPMENT_H_
@@ -16,23 +16,24 @@ using namespace std;
 class OnBoardEquipment {
 
 public:
-	OnBoardEquipment(string);
+	OnBoardEquipment(x509*, std::vector<std::tuple<std::string, std::string, int>>);
 	virtual ~OnBoardEquipment();
-	int sendMessage(string, string);
-	int receiveMessage(string, string);
+	int getEnrollment();
+	int getPseudonymCertificate();
+	static int ID;
 
 private:
-	struct network {
-		string ip;
+	struct Network {
+		std::string ip;
 		int port;
 	};
 
-	string ID;
-	map<string, network> addressMap;
-	map<string, int> certificateMap; // Need to change value to x509 type
-	map<string, int> keyPairMap; // Need to change value to key object
-	vector<int> pseudonymCerts; // Need to change type to x509 type
-	vector<int> pseudonymKeyPairs; // Need to change type to key objects
+	int id;
+	std::map<std::string, Network> addressMap;
+	std::map<std::string, x509*> certificateMap; // Need to change value to x509 type
+	std::map<std::string, RSA*> keyPairMap; // Need to change value to key object
+	std::vector<x509*> pseudonymCerts; // Need to change type to x509 type
+	std::vector<RSA*> pseudonymKeyPairs; // Need to change type to key objects
 };
 
 #endif /* SRC_ONBOARDEQUIPMENT_H_ */
