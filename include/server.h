@@ -104,7 +104,6 @@ public:
         // creating a client socket
         struct sockaddr_in clientAddr;
         socklen_t clientAddrLen = sizeof(clientAddr);
-        std::cout << "clientAddrLen: " << clientAddrLen << std::endl;
 
 
         while (true)
@@ -116,7 +115,7 @@ public:
                 //std::this_thread::sleep_for(std::chrono::milliseconds(10000));
 
             	std::cerr << "Error accepting connection: " << std::strerror(errno) << std::endl;
-            	std::cerr << "Error accepting connection: " << errno << std::endl;
+            	std::cerr << "Errono Value: " << errno << std::endl;
 
             }else{
                 // Read the request message
@@ -138,7 +137,7 @@ public:
                 {
                     // return 404 if route not found
                     log("Route not found: " + std::string(request.path));
-                    response.setHeaders(404, "", port, "", "empty");
+                    response.setHeaders(404, "", port, "","", "");
                     sendMessage(response, clientSocket);
                 }
             }
@@ -156,5 +155,9 @@ public:
 
         // Send the response
         send(clientSocket, buffer, sizeof(buffer), 0);
+    }
+
+    int getPort(){
+    	return port;
     }
 };

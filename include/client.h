@@ -38,7 +38,6 @@ public:
     bool sendMessage(const Message &request, Message &response, const char *serverIp, int serverPort)
     {
         // Create a socket
-    	std::cout << "hello" << std::endl;
         if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
         {
             std::cerr << "Error creating socket\n";

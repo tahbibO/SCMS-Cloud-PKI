@@ -30,7 +30,7 @@ int main()
     // Add routes and corresponding route handler functions
     server.addRoute("/", [](const Message &request, Message &response, int clientSocket, Server *in_server, certificateAuthority * in_ca ){
 		// Send response
-		response.setHeaders(200,"",3000,"/","text/plain");
+		response.setHeaders(200,"",3000,"/","","text/plain");
 		response.setData("Hello from server");
 		in_server->sendMessage(response, clientSocket);
 

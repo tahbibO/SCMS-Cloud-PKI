@@ -34,7 +34,7 @@ int main() {
 	cout << "created response and request!!!" << endl; // prints Hello World!!!
 	std::string ip_address = "54.165.85.13";
 	int port= 3000;
-	request.setHeaders(0,ip_address,port,"/cert","certificate");
+	request.setHeaders(0,ip_address,port,"/cert","","certificate");
 	cout << "set headers!!!" << endl; // prints Hello World!!!
 
 	request.setData("Hello from Client");

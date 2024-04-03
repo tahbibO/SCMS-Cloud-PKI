@@ -18,6 +18,6 @@ DeviceConfigurationManager::~DeviceConfigurationManager() {
 }
 
 OnBoardEquipment* DeviceConfigurationManager::createOBE(){
-	OnBoardEquipment *obe = new OnBoardEquipment(rootCert, CAs);
+	OnBoardEquipment *obe = new OnBoardEquipment(rootCert, CAs,true);
 	return obe;
 }

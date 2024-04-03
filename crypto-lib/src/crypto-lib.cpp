@@ -166,6 +166,7 @@ int main()
 
 	x509 certC;
 	certC.fromString(certificateA.toString());
+
 	/*
 	std::cout << "Certificate for C's public key" << std::endl;
 	std::cout << "Name:		" << certC.name << std::endl;
@@ -180,7 +181,7 @@ int main()
 	std::string someEncryptedData = signData(someString, keyPairA);
 	std::string someDecryptedData = verifyData(someEncryptedData, stringToPublicKey(certC.public_key));
 	std::cout << "Decrypted Data == Data:	" << (someDecryptedData == "Hello") << std::endl;
-
+/*
 	std::cout << std::endl << "------------------Array Test Functions-----------------" << std::endl;
 	std::cout << "1 = Pass" << std::endl;
 	RSA *keyPairOne = generateRSAKeyPair();
@@ -214,17 +215,17 @@ int main()
 	certArray[3] = certFour.toString();
 	certArray[4] = certFive.toString();
 
-	std::string resultStringArr = arrayToString(certArray, 5);
+	//std::string resultStringArr = arrayToString(certArray, 5);
 
 	std::cout << "resultStringArr: 	" << 5*resultStringArr.length() << std::endl;
 
-	std::string *certArrayTwo = stringToArray(resultStringArr,5);
+	//std::string *certArrayTwo = stringToArray(resultStringArr,5);
 
 	for(int i = 0;i<5;i++){
 		x509 tempX509;
 		//std::cout << certArrayTwo[i] << std::endl << std::endl;
 		std::cout << "certArr[" << i << "] == certArrayTwo[" << i << "]	:	" << (certArray[i] == certArrayTwo[i]) << std::endl;
-		/*
+
 		tempX509.fromString(certArrayTwo[i]);
 		std::cout << "cert entry " << i+1 << " name:	" << tempX509.name << std::endl;
 		std::cout << "cert entry " << i+1 << " key:	" << tempX509.public_key << std::endl;
@@ -234,7 +235,7 @@ int main()
 		std::cout << "cert entry " << i+1 << " issue_date:	" << tempX509.issue_date << std::endl;
 		std::cout << "cert entry " << i+1 << " valid until:	" << tempX509.valid_until<< std::endl;
 		std::cout << std::endl << std::endl;
-		*/
+
 	}
 
 
@@ -243,6 +244,7 @@ int main()
 	RSA_free(keyPairThree);
 	RSA_free(keyPairFour);
 	RSA_free(keyPairFive);
+	*/
 	RSA_free(keyPairA);
 	RSA_free(pubKeyA);
 	RSA_free(keyPairB);

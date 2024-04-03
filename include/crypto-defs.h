@@ -133,63 +133,66 @@ struct x509
 	{
 		std::stringstream ss;
 
-		ss << "name:" << this->name << ";";
-		ss << "public_key:" << this->public_key << ";";
-		ss << "location:" << this->location << ";";
-		ss << "issuer:" << this->issuer << ";";
-		ss << "issue_date:" << this->issue_date << ";";
-		ss << "valid_until:" << this->valid_until << ";";
-		ss << "signature:" << this->signature << ";";
+		ss << "name</val>" << this->name << "</split>";
+		ss << "public_key</val>" << this->public_key << "</split>";
+		ss << "location</val>" << this->location << "</split>";
+		ss << "issuer</val>" << this->issuer << "</split>";
+		ss << "issue_date</val>" << this->issue_date << "</split>";
+		ss << "valid_until</val>" << this->valid_until << "</split>";
+		ss << "signature</val>" << this->signature << "</split>";
 
 		return ss.str();
 	}
 
 	void fromString(std::string data)
 	{
-		std::stringstream ss(data);
-		std::string field;
+	    std::vector<std::string> stringVector;
+	    std::string tempString = data;
 
-		while (std::getline(ss, field, ';'))
-		{
-			size_t pos = field.find(':');
-			if (pos != std::string::npos)
+	    while (true) {
+	        size_t pos = tempString.find("</split>");
+	        if (pos != std::string::npos) {
+	            std::string beforeSplit = tempString.substr(0, pos);
+	            stringVector.push_back(beforeSplit);
+	            tempString = tempString.substr(pos + strlen("</split>"));
+	        } else {
+	            break;
+	        }
+	    }
+
+	    for (const auto& str : stringVector) {
+	        size_t pos = str.find("</val>");
+	        std::string key = str.substr(0,pos);
+	        std::string value = str.substr(pos+strlen("</val>"));
+ 			if (key == "name")
 			{
-				std::string key = field.substr(0, pos);
-				std::string value = field.substr(pos + 1);
-
-				if (key == "name")
-				{
-					this->name = value;
-				}
-				else if (key == "public_key")
-				{
-					this->public_key = value;
-				}
-				else if (key == "signature")
-				{
-					this->signature = value;
-				}
-				else if (key == "location")
-				{
-					this->location = value;
-				}
-				else if (key == "issuer")
-				{
-					std::cout << "func: fromString, value: " << value << std::endl;
-
-					this->issuer = value;
-				}
-				else if (key == "issue_date")
-				{
-					std::cout << "func: fromString, value: " << value << std::endl;
-					this->issue_date = std::stol(value);
-				}
-				else if (key == "valid_until")
-				{
-					this->valid_until = std::stol(value);
-				}
+				this->name = value;
 			}
-		}
+			else if (key == "public_key")
+			{
+				this->public_key = value;
+			}
+			else if (key == "signature")
+			{
+				this->signature = value;
+			}
+			else if (key == "location")
+			{
+				this->location = value;
+			}
+			else if (key == "issuer")
+			{
+				this->issuer = value;
+			}
+			else if (key == "issue_date")
+			{
+				this->issue_date = std::stol(value);
+			}
+			else if (key == "valid_until")
+			{
+				this->valid_until = std::stol(value);
+			}
+	    }
 	}
 };
 
@@ -381,7 +384,7 @@ inline bool signCertificate(x509 *certificate, RSA *private_key, x509 *issuerCer
 // map is name associated, public key
 inline bool verifyCertificate(x509 *certificate, std::map<std::string, RSA *> keyMap, std::map<std::string, x509 *> certMap)
 {
-
+	std::cout << "Here:	" << certificate->name << std::endl;
 	if (certificate == nullptr)
 	{
 		std::cerr << "Certificate is null" << std::endl;
@@ -420,7 +423,7 @@ inline bool verifyCertificate(x509 *certificate, std::map<std::string, RSA *> ke
 	return verifyCertificate(nextCert, keyMap, certMap);
 }
 
-RSA* readPrivateKeyFromFile(const std::string& filename) {
+inline RSA* readPrivateKeyFromFile(const std::string& filename) {
     RSA* rsaKey = nullptr;
 
     // Open the file
